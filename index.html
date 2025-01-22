@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Percakapan Naruto</title>
+    <style>
+       body {
+    font-family: Arial, sans-serif;
+    background-image: url('latar/KONOHA.png'); /* Ganti dengan path gambar latar */
+    background-size: cover; /* Pastikan gambar meliputi seluruh layar */
+    background-position: center; /* Pusatkan gambar */
+    background-attachment: fixed; /* Latar tetap saat scrolling */
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Hindari scroll yang tidak diinginkan */
+    color: white;
+}
+
+        .intro {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: rgba(0, 0, 0, 0.1);
+            z-index: 100;
+            text-align: center;
+        }
+
+        .intro h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(81, 73, 73, 0.5);
+           font-style: italic;
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        .intro p {
+            font-size: 15px;
+            font-style: italic;
+            position: relative;
+            font-family: Arial, Helvetica, sans-serif;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.10);
+            line-height: 1.1;
+        }
+
+        .intro button {
+    padding: 10px 20px; /* Lebar dan tinggi tombol lebih besar */
+    background-color: #ff8800; /* Warna latar tombol */
+    border: none; /* Menghilangkan border default */
+    border-radius: 12px; /* Sudut tombol lebih bulat */
+    font-size: 20px; /* Ukuran font lebih besar */
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif; /* Gunakan font yang lebih modern */
+    color: rgb(0, 0, 0); /* Warna teks tombol putih */
+    cursor: pointer; /* Menunjukkan tombol dapat diklik */
+    box-shadow: 0 9px 20px rgba(0, 0, 0, 0.4); /* Bayangan lebih lembut dan besar */
+    transition: all 0.3s ease; /* Animasi transisi saat interaksi */ /* Teks lebih tebal */
+    text-transform: uppercase; /* Membuat teks lebih berkesan */
+}
+
+.intro button:hover {
+    background-color: #ffffff; /* Ubah warna latar saat hover */
+    transform: scale(1.1); /* Tombol membesar sedikit saat hover */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6); /* Bayangan lebih tebal dan lebih besar saat hover */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Efek cahaya halus pada teks */
+}
+
+.intro button:active {
+    transform: scale(1); /* Tombol kembali ke ukuran semula saat ditekan */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3); /* Bayangan mengecil saat ditekan */
+}
+
+       
+        /* Posisi dasar karakter */
+.character-container {
+    position: absolute;
+    right: 10; /* Posisikan karakter di kanan */
+    top: 50%; /* Posisikan karakter di tengah secara vertikal */
+    transform: translateY(-40%); /* Pastikan karakter tepat di tengah */
+    display: none; /* Sembunyikan karakter awalnya */
+    opacity: 0; /* Mulai dengan transparansi 0 */
+    animation: fadeIn 1s forwards; /* Animasi fade-in */
+    z-index: 10; /* Pastikan karakter muncul di depan */
+}
+
+/* Gambar karakter */
+.character-container img {
+    width: 500px; /* Lebar karakter konsisten */
+    height: 500px; /* Tinggi karakter konsisten */
+    object-fit: contain; /* Menjaga karakter tetap proporsional */
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.5)); /* Efek bayangan pada karakter */
+}
+
+/* Animasi fadeIn untuk karakter */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+.dialogue-container {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            text-align: center;
+            display: none;
+        }
+
+
+        #name {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: white; /* Default color for the character names */
+}
+
+#name.naruto {
+    color: orange; /* Example color for Naruto */
+}
+
+#name.sasuke {
+    color: rgb(38, 38, 255); /* Example color for Sasuke */
+}
+
+#name.hinata {
+    color: #b235ff; /* Light blue for Hinata */
+}
+
+#name.sakura {
+    color: rgb(255, 0, 191); /* Example color for Sakura */
+}
+
+
+        #dialogue {
+            font-size: 18px;
+            font-style: italic;
+        }
+
+/* Dialog (Teks) */
+.dialogue-container {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    text-align: center;
+    z-index: 5; /* Pastikan dialog berada di bawah karakter */
+}
+
+/* Pengaturan teks */
+#name {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+#dialogue {
+    font-size: 18px;
+    font-style: italic;
+}
+
+/* Tombol navigasi */
+#next-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ffb300;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    font-family:'Arial Narrow Bold';
+    color: black;
+    box-shadow: 0 5px 10px rgba(74, 74, 74, 0.8);
+}
+
+#next-button:hover {
+    background-color: #ffffff;
+}
+
+    </style>
+</head>
+<body>
+   <audio id="background-music" autoplay loop>
+    <source src="musik/Konoha.mp3" type="audio/mp3">
+</audio>
+
+
+   <div class="intro" id="intro">
+    <h1>PERCAKAPAN TEAM 7 NARUTO</h1>
+    <P>klik mulai dan simak percakapan tim 7 <br> 
+        jika dalam 20 detik tidak mengklik lanjut, maka percakapan akan terus berlanjut</P>
+        <button id="start-button">Mulai Percakapan</button>
+   </div>
+    
+
+    <div id="character-container-1" class="character-container">
+        <img src="karakter/Naruto.png" alt="Naruto">
+    </div>
+    <div id="character-container-2" class="character-container">
+        <img src="karakter/sasuke.png" alt="Sasuke">
+    </div>
+    <div id="character-container-3" class="character-container">
+        <img src="karakter/hinata.png" alt="Hinata">
+    </div>
+    <div id="character-container-4" class="character-container">
+        <img src="karakter/Sakura.png" alt="Sakura">
+    </div>
+
+    <div class="dialogue-container" id="dialogue-container">
+        <div id="name"></div>
+        <div id="dialogue"></div>
+        <button id="next-button">Lanjut</button>
+       
+  
+    <script src="script.js"></script>
+</body>
+</html>
